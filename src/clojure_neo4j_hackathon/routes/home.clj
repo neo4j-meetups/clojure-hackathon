@@ -14,13 +14,11 @@
 
 (defn get-movies
   [limit]
-  (let [result (->> (cy/tquery conn all-movies-query {:limit limit})
-                    walk/keywordize-keys)]
-    result))
+  (->> (cy/tquery conn all-movies-query {:limit limit})
+                    walk/keywordize-keys))
 
 (defn home-page []
   (let [result (get-movies 50)]
-    (println result)
     (layout/render
      "home.html"
      {:result (map  #(->> % :m :data) result) })))
@@ -28,6 +26,18 @@
 (defn about-page []
   (layout/render "about.html"))
 
+(def movie-query "MATCH (m:Movie {id: {id}})
+                  RETURN m")
+
+(defn get-movie [movie-id]
+  (->> (cy/tquery conn movie-query {:id movie-id})
+       walk/keywordize-keys))
+
+(defn movies-page [movie-id]
+  (layout/render "movies.html"
+                 {:result (first (map #(->> % :m :data) (get-movie movie-id))) }))
+
 (defroutes home-routes
   (GET "/" [] (home-page))
+  (GET "/movies/:id" [id] (movies-page id))
   (GET "/about" [] (about-page)))
