@@ -1,0 +1,26 @@
+{% extends "templates/base.html" %}
+{% block content %}
+  <div class="row-fluid">
+    <h1>All movies</h1>
+
+
+    <div class="span9">
+      <table class="table">
+      <thead>
+<tr>
+        <th>Title</th>
+        <th>Release Date</th>
+</tr>
+        </thead>
+<tbody>
+      {% for row in result %}
+       <tr>
+         <td> <a href="/movies/{{row.id}}">{{row.title}}</a></td>
+         <td> {{row.releaseDate}}</td>
+       </tr>
+      {% endfor %}
+</tbody>
+       </table>
+    </div>
+  </div>
+{% endblock %}
