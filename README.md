@@ -8,9 +8,8 @@ You will need [Leiningen][1] 2.0 or above installed.
 
 ## Running
 
-To import the data, run the commands in [data/import/movies.cql] in the Neo4j browser
+To import the data, run the commands in [movies.cql](data/import/movies.cql) in the Neo4j browser
 
 To start the movie application, run:
 
     lein ring server
-
