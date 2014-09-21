@@ -1,6 +1,4 @@
-# clojure-neo4j-hackathon
-
-FIXME
+# Neo4j Clojure Hackathon
 
 ## Prerequisites
 
@@ -10,10 +8,9 @@ You will need [Leiningen][1] 2.0 or above installed.
 
 ## Running
 
-To start a web server for the application, run:
+To import the data, run the commands in [data/import/movies.cql] in the Neo4j browser
+
+To start the movie application, run:
 
     lein ring server
 
-## License
-
-Copyright © 2014 FIXME
