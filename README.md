@@ -13,3 +13,7 @@ To import the data, run the commands in [movies.cql](data/import/movies.cql) in 
 To start the movie application, run:
 
     lein ring server
+
+and navigate to:
+
+    http://localhost:3000
