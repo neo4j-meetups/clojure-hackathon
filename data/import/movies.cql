@@ -6,13 +6,13 @@ CREATE CONSTRAINT ON (k:Keyword) ASSERT k.id IS UNIQUE;
 
 
 // Movie titles
-LOAD CSV WITH HEADERS FROM "https://raw.githubusercontent.com/mneedham/clojure-neo4j-hackathon/master/data/all-movies.csv" AS line
+LOAD CSV WITH HEADERS FROM "https://raw.githubusercontent.com/neo4j-meetups/clojure-hackathon/master/data/all-movies.csv" AS line
 
 MERGE (m:Movie {id: line.Id})
 ON CREATE SET m.title = line.Title, m.releaseDate = line.ReleaseDate;
 
 // Genres
-LOAD CSV WITH HEADERS FROM "https://raw.githubusercontent.com/mneedham/clojure-neo4j-hackathon/master/data/all-genres.csv" AS line
+LOAD CSV WITH HEADERS FROM "https://raw.githubusercontent.com/neo4j-meetups/clojure-hackathon/master/data/all-genres.csv" AS line
 
 MERGE (m:Movie {id: line.MovieId})
 MERGE (g:Genre {id: line.GenreId})
@@ -21,7 +21,7 @@ ON CREATE SET g.name = line.GenreName
 MERGE (m)-[:HAS_GENRE]->(g);
 
 // Casts
-LOAD CSV WITH HEADERS FROM "https://raw.githubusercontent.com/mneedham/clojure-neo4j-hackathon/master/data/all-casts.csv" AS line
+LOAD CSV WITH HEADERS FROM "https://raw.githubusercontent.com/neo4j-meetups/clojure-hackathon/master/data/all-casts.csv" AS line
 
 MERGE (m:Movie {id: line.MovieId})
 
@@ -31,7 +31,7 @@ ON CREATE SET p.name = line.ActorName
 MERGE (p)-[:ACTED_IN {role: line.Character}]-(m);
 
 // Key words
-LOAD CSV WITH HEADERS FROM "https://raw.githubusercontent.com/mneedham/clojure-neo4j-hackathon/master/data/all-keywords.csv" AS line
+LOAD CSV WITH HEADERS FROM "https://raw.githubusercontent.com/neo4j-meetups/clojure-hackathon/master/data/all-keywords.csv" AS line
 
 MERGE (k:Keyword {id: line.KeyWordId})
 ON CREATE SET k.name = line.KeyWord
