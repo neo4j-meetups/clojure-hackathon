@@ -1,9 +1,25 @@
 {% extends "templates/base.html" %}
 {% block content %}
   <div class="row-fluid">
-    <h1>{{result.title}}</h1>
-    <div class="span9">
-      Put information about the movie here
-    </div>
+    <h1>{{title}}</h1>
+    <h3>Release Date: {{release}}</h3>
+    <h3>Keywords</h3>
+    <ul>
+      {% for row in keywords %}
+      <li>{{row}}</li>
+      {% endfor %}
+    </ul>
+    <h3>Genres</h3>
+    <ul>
+      {% for row in genres %}
+      <li>{{row}}</li>
+      {% endfor %}
+    </ul>
+    <h3>Actors</h3>
+    <ul>
+      {% for row in actors %}
+      <li>{{row.actor}} as {{row.role}}</li>
+      {% endfor %}
+    </ul>
   </div>
 {% endblock %}

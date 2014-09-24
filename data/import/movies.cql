@@ -28,7 +28,7 @@ MERGE (m:Movie {id: line.MovieId})
 MERGE (p:Person {id: line.ActorId})
 ON CREATE SET p.name = line.ActorName
 
-MERGE (p)-[:ACTED_IN {role: line.Character}]-(m);
+MERGE (p)-[:ACTED_IN {role: line.Character}]->(m);
 
 // Key words
 LOAD CSV WITH HEADERS FROM "https://raw.githubusercontent.com/neo4j-meetups/clojure-hackathon/master/data/all-keywords.csv" AS line
