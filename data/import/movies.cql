@@ -42,6 +42,15 @@ FOREACH(ignoreMe IN updateExistingRel |
   SET r.roles = [r IN r.roles WHERE r <> line.Character] + line.Character);
 
 // Crew
+LOAD CSV WITH HEADERS FROM "https://raw.githubusercontent.com/neo4j-meetups/clojure-hackathon/master/data/all-crews.csv" AS line
+
+MATCH (m:Movie {id: line.MovieId})
+
+MERGE (p:Person {id: line.CrewId})
+ON CREATE SET p.name = line.Name
+
+FOREACH(ignoreMe IN CASE WHEN line.Role = "Director" THEN [1] ELSE [0] END | MERGE (p)-[:DIRECTED]->(m))
+FOREACH(ignoreMe IN CASE WHEN line.Role = "Producer" THEN [1] ELSE [0] END | MERGE (p)-[:PRODUCED]->(m));
 
 
 // Key words
