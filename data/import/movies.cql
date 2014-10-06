@@ -27,16 +27,6 @@ MATCH (m:Movie {id: line.MovieId})
 MERGE (p:Person {id: line.ActorId})
 ON CREATE SET p.name = line.ActorName
 
-MERGE (p)-[:ACTED_IN {roles: line.Character}]->(m);
-
-// take 2
-LOAD CSV WITH HEADERS FROM "https://raw.githubusercontent.com/neo4j-meetups/clojure-hackathon/master/data/all-casts.csv" AS line
-
-MATCH (m:Movie {id: line.MovieId})
-
-MERGE (p:Person {id: line.ActorId})
-ON CREATE SET p.name = line.ActorName
-
 WITH *
 
 OPTIONAL MATCH (p)-[r:ACTED_IN]->(m)
@@ -50,6 +40,9 @@ FOREACH(ignoreMe IN addNewRel |
 FOREACH(ignoreMe IN updateExistingRel |
   MERGE (p)-[r:ACTED_IN]->(m)
   SET r.roles = [r IN r.roles WHERE r <> line.Character] + line.Character);
+
+// Crew
+
 
 // Key words
 LOAD CSV WITH HEADERS FROM "https://raw.githubusercontent.com/neo4j-meetups/clojure-hackathon/master/data/all-keywords.csv" AS line
